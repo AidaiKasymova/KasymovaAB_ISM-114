@@ -3,16 +3,16 @@
 
 Account::Account(const string& sr, const double perc, const double am)
 {
-	// Сгенерировать новый счет
+	// РЎРіРµРЅРµСЂРёСЂРѕРІР°С‚СЊ РЅРѕРІС‹Р№ СЃС‡РµС‚
 	createNewAcc();
 
-	// Если переданная строка с фамилией пуста или состоит из пробельных символов, то выбросить исключение
+	// Р•СЃР»Рё РїРµСЂРµРґР°РЅРЅР°СЏ СЃС‚СЂРѕРєР° СЃ С„Р°РјРёР»РёРµР№ РїСѓСЃС‚Р° РёР»Рё СЃРѕСЃС‚РѕРёС‚ РёР· РїСЂРѕР±РµР»СЊРЅС‹С… СЃРёРјРІРѕР»РѕРІ, С‚Рѕ РІС‹Р±СЂРѕСЃРёС‚СЊ РёСЃРєР»СЋС‡РµРЅРёРµ
 	surname = sr.find_first_not_of(' ') == sr.npos || sr.empty() 
-		? throw new invalid_argument("Ошибка! Строка с фамилией не может быть пустой.") : sr;
+		? throw new invalid_argument("РћС€РёР±РєР°! РЎС‚СЂРѕРєР° СЃ С„Р°РјРёР»РёРµР№ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚РѕР№.") : sr;
 
-	percent = perc < 0 ? throw new invalid_argument("Ошибка! Процент не может быть отрицательным.") : perc;
+	percent = perc < 0 ? throw new invalid_argument("РћС€РёР±РєР°! РџСЂРѕС†РµРЅС‚ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Рј.") : perc;
 
-	amount = am < 0 ? throw new invalid_argument("Ошибка! Сумма не может быть отрицательной.") : am;
+	amount = am < 0 ? throw new invalid_argument("РћС€РёР±РєР°! РЎСѓРјРјР° РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅРѕР№.") : am;
 }
 
 void Account::changeOwner(const string& sr)
@@ -20,15 +20,15 @@ void Account::changeOwner(const string& sr)
 	createNewAcc();
 
 	surname = sr.find_first_not_of(' ') == sr.npos || sr.empty()
-		? throw new invalid_argument("Ошибка! Строка с фамилией не может быть пустой.") : sr;
+		? throw new invalid_argument("РћС€РёР±РєР°! РЎС‚СЂРѕРєР° СЃ С„Р°РјРёР»РёРµР№ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚РѕР№.") : sr;
 }
 
 void Account::withDraw(const double am)
 {
 	if (am < 0)
-		throw new invalid_argument( "Некорректная сумма к снятию!");
+		throw new invalid_argument( "РќРµРєРѕСЂСЂРµРєС‚РЅР°СЏ СЃСѓРјРјР° Рє СЃРЅСЏС‚РёСЋ!");
 	else if (amount < am)
-		throw new invalid_argument("Сумма к снятию превышает остаток на счете!");
+		throw new invalid_argument("РЎСѓРјРјР° Рє СЃРЅСЏС‚РёСЋ РїСЂРµРІС‹С€Р°РµС‚ РѕСЃС‚Р°С‚РѕРє РЅР° СЃС‡РµС‚Рµ!");
 	else
 		amount -= am;
 }
@@ -36,7 +36,7 @@ void Account::withDraw(const double am)
 void Account::makeDeposit(const double am)
 {
 	if (am < 0)
-		throw new invalid_argument("Некорректная сумма к пополнению!");
+		throw new invalid_argument("РќРµРєРѕСЂСЂРµРєС‚РЅР°СЏ СЃСѓРјРјР° Рє РїРѕРїРѕР»РЅРµРЅРёСЋ!");
 	else
 		amount += am;
 }
@@ -62,11 +62,11 @@ double Account::convertToUSD()
 string Account::toString()
 {
 	stringstream s;
-	s << "Текущий счет: " << amount << " рублей" << endl;
-	s << "В евро: " << convertToEUR() << " €" << endl;
-	s << "В долларах: " << convertToUSD() << " $" << endl;
-	s << "Номер: " << accNum << endl;
-	s << "Фамилия владельца: " << surname << endl;
-	s << percent << "% начисляется ежегодно." << endl;
+	s << "РўРµРєСѓС‰РёР№ СЃС‡РµС‚: " << amount << " СЂСѓР±Р»РµР№" << endl;
+	s << "Р’ РµРІСЂРѕ: " << convertToEUR() << " в‚¬" << endl;
+	s << "Р’ РґРѕР»Р»Р°СЂР°С…: " << convertToUSD() << " $" << endl;
+	s << "РќРѕРјРµСЂ: " << accNum << endl;
+	s << "Р¤Р°РјРёР»РёСЏ РІР»Р°РґРµР»СЊС†Р°: " << surname << endl;
+	s << percent << "% РЅР°С‡РёСЃР»СЏРµС‚СЃСЏ РµР¶РµРіРѕРґРЅРѕ." << endl;
 	return s.str();
 }
